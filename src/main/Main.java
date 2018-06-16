@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import DAO.DoencaDAO;
+import DAO.EspecialidadeDAO;
 import DAO.MedicamentoDAO;
 import DAO.MedicoDAO;
 import DAO.PacienteDAO;
@@ -69,6 +70,7 @@ public class Main {
 
  
     MedicoDAO mDAO = new MedicoDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
+    EspecialidadeDAO eDAO = new EspecialidadeDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
 
     // mDAO.insert(m1);
     // mDAO.insert(m2);
@@ -87,6 +89,13 @@ public class Main {
     //
     // List<Medico> medicos = mDAO.retrieveMedicos();
     // for (Iterator<Medico> iterator = medicos.iterator(); iterator.hasNext();)
+    
+    //String e1 = "Pediatra";
+    //eDAO.insert(m1, e1);
+    //eDAO.update(m1, e1, "Reumatologista");
+    //eDAO.remove(m1, "Reumatologista");
+    
+    
     // {
     // Medico medico = (Medico) iterator.next();
     // System.out.println(medico.getNome() + " " +medico.getCrm());
