@@ -15,12 +15,14 @@ public class Main {
 		Paciente p1 = new Paciente("12345678901", "Fulano", data, "(84)7894-9874", 
 				"fulano@gmail.com", "Rua das Oliveiras", "M", "12345", "O+", 50, 1.5);
 		
-		PacienteDAO pDAO = new PacienteDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
+		//PacienteDAO pDAO = new PacienteDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
+		PacienteDAO pDAO = new PacienteDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
 		
 		//pDAO.insert(p1);
-		p1.setNome("Joaquim");
-		//pDAO.remove(p1);
-		pDAO.updatePaciente(p1);
+		//p1.setNome("Joaquim");
+		//p1.setAltura(1.75);
+	  //pDAO.updatePaciente(p1);
+	  //pDAO.remove(p1);
 	}
 
 }

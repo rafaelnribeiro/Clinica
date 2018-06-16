@@ -45,7 +45,7 @@ public class PacienteDAO extends DAO{
   		try {
 			conectar();
 			
-			String sql = ("DELETE FROM PACIENTE WHERE cpfPaciente= " + retornarValorStringBD(paciente.getCpf()));			
+			String sql = ("DELETE FROM PESSOA WHERE cpf= " + retornarValorStringBD(paciente.getCpf()));			
 			comando.executeUpdate(sql);			
 			
 			fechar();
@@ -66,16 +66,18 @@ public class PacienteDAO extends DAO{
   			buffer.append(retornarCamposBDPessoa(paciente));
   			buffer.append(" WHERE cpf=" + retornarValorStringBD(paciente.getCpf()));
   			String sql = buffer.toString();
-  			comando.executeUpdate(sql);
   			System.out.println(sql);
+  			comando.executeUpdate(sql);
   			
+
   			buffer.setLength(0);
   			buffer.append("UPDATE PACIENTE SET ");
   			buffer.append(retornarCamposBDPaciente(paciente));
   			buffer.append(" WHERE cpfPaciente=" + retornarValorStringBD(paciente.getCpf()));
   			sql = buffer.toString();
-  			comando.executeUpdate(sql);  			
   			System.out.println(sql);
+  			comando.executeUpdate(sql);  			
+  			
   			
   			fechar();
 			
@@ -141,7 +143,7 @@ public class PacienteDAO extends DAO{
 	 
 	 private String retornarCamposBDPaciente(Paciente paciente) {
 		 StringBuffer buffer = new StringBuffer();
-		 buffer.append(", cpfPaciente= ");
+		 buffer.append("cpfPaciente= ");
 		 buffer.append(retornarValorStringBD(paciente.getCpf()));
 		 buffer.append(", tipoSanguineo= ");
 		 buffer.append(retornarValorStringBD(paciente.getTipoSanguineo()));
