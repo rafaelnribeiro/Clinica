@@ -1,10 +1,10 @@
 package main;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import DAO.MedicamentoDAO;
 import DAO.MedicoDAO;
 import DAO.PacienteDAO;
 import conexao.ConFactory;
@@ -17,16 +17,17 @@ public class Main {
     SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
     java.sql.Date data = new java.sql.Date(format.parse("1990-10-10").getTime());
 
-    // Paciente p1 = new Paciente("12345678901", "Fulano", data, "(84)7894-9874",
-    // "fulano@gmail.com", "Rua das Oliveiras", "M", "12345", "O+", 50, 1.5);
-    // Paciente p2 = new Paciente("99999999999", "Sicrano", data, "(84)9512-9874",
-    // "sicrano@gmail.com", "Rua das Trincheiras", "M", "12345", "O+", 50, 1.5);
-    // Paciente p3 = new Paciente("77777777777", "Beltrano", data, "(84)3578-9874",
-    // "beltrano@gmail.com", "Rua das Torneiras", "M", "12345", "O+", 50, 1.5);
-    //
+     Paciente p1 = new Paciente("12345678901", "Fulano", data, "(84)7894-9874",
+     "fulano@gmail.com", "Rua das Oliveiras", "M", "12345", "O+", 50, 1.5);
+     Paciente p2 = new Paciente("99999999999", "Sicrano", data, "(84)9512-9874",
+     "sicrano@gmail.com", "Rua das Trincheiras", "M", "12345", "O+", 50, 1.5);
+     Paciente p3 = new Paciente("77777777777", "Beltrano", data, "(84)3578-9874",
+     "beltrano@gmail.com", "Rua das Torneiras", "M", "12345", "O+", 50, 1.5);
+    
     //PacienteDAO pDAO = new PacienteDAO("jdbc:mysql://localhost/clinica",
     // "aluno", "aluno", ConFactory.MYSQL);
     PacienteDAO pDAO = new PacienteDAO("jdbc:mysql://localhost/clinica", "root","root", ConFactory.MYSQL);
+    MedicamentoDAO mdDAO = new MedicamentoDAO("jdbc:mysql://localhost/clinica", "root","root", ConFactory.MYSQL);
     //
     // pDAO.insert(p1);
     // pDAO.insert(p2);
@@ -41,6 +42,11 @@ public class Main {
     // Paciente p4 = pDAO.search("12345678901");
     // System.out.println(p4.getNome() + " " +p4.getAltura());
     //
+    String md1 = "Prosopopol";
+    //mdDAO.insert(p1, md1);
+    mdDAO.update(p1, md1, "Epopol");
+    mdDAO.remove(p1, "Epopol");
+    
      List<Paciente> pacientes = pDAO.retrievePacientes();
      for (Iterator<Paciente> iterator = pacientes.iterator(); iterator.hasNext();)
      {

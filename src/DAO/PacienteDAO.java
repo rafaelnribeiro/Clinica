@@ -72,7 +72,6 @@ public class PacienteDAO extends DAO {
       buffer.append(retornarCamposBDPessoa(paciente));
       buffer.append(" WHERE cpf=" + retornarValorStringBD(paciente.getCpf()));
       String sql = buffer.toString();
-      System.out.println(sql);
       comando.executeUpdate(sql);
 
       buffer.setLength(0);
@@ -80,7 +79,6 @@ public class PacienteDAO extends DAO {
       buffer.append(retornarCamposBDPaciente(paciente));
       buffer.append(" WHERE cpfPaciente=" + retornarValorStringBD(paciente.getCpf()));
       sql = buffer.toString();
-      System.out.println(sql);
       comando.executeUpdate(sql);
 
       fechar();
