@@ -158,20 +158,17 @@ public class PacienteDAO extends DAO {
     try {
       conectar();
       
-      String sql = "SELECT * FROM PESSOA";
+      String sql = "SELECT * FROM PACIENTE";
       ResultSet rs = comando.executeQuery(sql);
       
       List<Paciente> pacientes = new ArrayList<Paciente>();
       while (rs.next()) {      
         Paciente paciente = new Paciente();
-        paciente.setCpf(rs.getString("cpf"));
-        paciente.setNome(rs.getString("nome"));
-        paciente.setData(rs.getDate("dataNascimento"));
-        paciente.setTelefone(rs.getString("telefone"));
-        paciente.setEmail(rs.getString("email"));
-        paciente.setEndereco(rs.getString("endereco"));
-        paciente.setSexo(rs.getString("sexo"));
-        paciente.setSenha(rs.getString("senha"));
+        paciente.setCpf(rs.getString("cpfPaciente"));
+        paciente.setTipoSanguineo(rs.getString("tipoSanguineo"));
+        paciente.setPeso(rs.getDouble("peso"));
+        paciente.setAltura(rs.getDouble("altura"));
+
         
         pacientes.add(paciente);
       }
@@ -180,13 +177,17 @@ public class PacienteDAO extends DAO {
         Paciente paciente = (Paciente) iterator.next();
         
         
-        sql = "SELECT * FROM PACIENTE WHERE cpfPaciente="
+        sql = "SELECT * FROM PESSOA WHERE cpf="
             + retornarValorStringBD(paciente.getCpf());
         rs = comando.executeQuery(sql);
-        if (rs.next()) {        
-          paciente.setTipoSanguineo(rs.getString("tipoSanguineo"));
-          paciente.setPeso(rs.getDouble("peso"));
-          paciente.setAltura(rs.getDouble("altura"));
+        if (rs.next()) {
+          paciente.setNome(rs.getString("nome"));
+          paciente.setData(rs.getDate("dataNascimento"));
+          paciente.setTelefone(rs.getString("telefone"));
+          paciente.setEmail(rs.getString("email"));
+          paciente.setEndereco(rs.getString("endereco"));
+          paciente.setSexo(rs.getString("sexo"));
+          paciente.setSenha(rs.getString("senha"));
         }        
         
         sql = "SELECT medicamento FROM ALERGIA_MEDICAMENTOS WHERE cpfPacienteAlergia="
@@ -216,11 +217,7 @@ public class PacienteDAO extends DAO {
         } 
         
       }
-      
-      sql = "SELECT * FROM PACIENTE";
-      rs = comando.executeQuery(sql);      
-      
-      
+     
       fechar();
       
       return pacientes;

@@ -16,12 +16,12 @@ public class Medico extends Pessoa{
   }
 
   public Medico(String cpf, String nome, Date data, String telefone, String email, String endereco, String sexo,
-      String senha, String crm, int numUnidade, ArrayList<String> especialidades, ArrayList<Horario> horarios) {
+      String senha, String crm, int numUnidade) {
     super(cpf, nome, data, telefone, email, endereco, sexo, senha);
     this.crm = crm;
     this.numUnidade = numUnidade;
-    this.especialidades = especialidades;
-    this.horarios = horarios;
+    this.especialidades = new ArrayList<String>();
+    this.horarios = new ArrayList<Horario>();
   }
 
   public String getCrm() {

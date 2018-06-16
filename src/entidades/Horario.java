@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class Horario {
+  private int idHorario;
   private Time horaInicio;
   private Time horaFim;
   private Date dataInicio;
@@ -13,11 +14,20 @@ public class Horario {
     super();
   }
 
-  public Horario(Time horaInicio, Time horaFim, Date dataInicio, Date dataFim) {
+  public Horario(int idHorario, Time horaInicio, Time horaFim, Date dataInicio, Date dataFim) {
+    this.idHorario = idHorario;
     this.horaInicio = horaInicio;
     this.horaFim = horaFim;
     this.dataInicio = dataInicio;
     this.dataFim = dataFim;
+  }
+
+  public int getIdHorario() {
+    return idHorario;
+  }
+
+  public void setIdHorario(int idHorario) {
+    this.idHorario = idHorario;
   }
 
   public Time getHoraInicio() {
