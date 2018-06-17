@@ -14,12 +14,14 @@ import DAO.MedicamentoDAO;
 import DAO.MedicoDAO;
 import DAO.PacienteDAO;
 import DAO.ProntuarioDAO;
+import DAO.ServicoDAO;
 import conexao.ConFactory;
 import entidades.Agendamento;
 import entidades.Horario;
 import entidades.Medico;
 import entidades.Paciente;
 import entidades.Prontuario;
+import entidades.Servico;
 
 public class Main {
 
@@ -127,6 +129,7 @@ public class Main {
 //     }
     
     AgendamentoDAO aDAO = new AgendamentoDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
+    ServicoDAO sDAO = new ServicoDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
     Time horaAg = Time.valueOf("15:00:00");
     Date dataAg = Date.valueOf("2018-10-25");    
     Agendamento a1 = new Agendamento(1, "12345678901", "55555555555", dataAg, horaAg, "Agendado?", "A vida é bela");
@@ -140,6 +143,14 @@ public class Main {
 //a1.setComentario("ABCD");
 //aDAO.updateAgendamento(a1);
     //aDAO.remove(a1);
+    
+//    Time horaServ = Time.valueOf("15:00:00");
+//    Date dataServ = Date.valueOf("2018-10-25"); 
+//    Servico s1 = new Servico(1, dataServ, horaServ, 50.00, "Internação", 0);
+//    sDAO.insert(a1, s1);
+//    sDAO.remove(a1, s1);
+//    s1.setEstaPago(1);
+//    sDAO.update(a1, s1);
     
 //    List<Agendamento> agendamentos = aDAO.retrieveAgendamentos();
 //    for (Iterator<Agendamento> iterator = agendamentos.iterator(); iterator.hasNext();) {
