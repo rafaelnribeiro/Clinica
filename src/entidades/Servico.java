@@ -1,42 +1,103 @@
 package entidades;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class Servico {
-  private String preco;
-  private String estaPago;
+  private int idServico;
+  private int idAgendamento;
+  private Date dataServico;
+  private Time horaServico;
+  private double preco;
   private String descricao;
+  private int estaPago;
+
   
   public Servico() {
     super();
   }
 
-  public Servico(String preco, String estaPago, String descricao) {
+
+  public Servico(int idServico, int idAgendamento, Date dataServico, Time horaServico, double preco, String descricao,
+      int estaPago) {
+    this.idServico = idServico;
+    this.idAgendamento = idAgendamento;
+    this.dataServico = dataServico;
+    this.horaServico = horaServico;
     this.preco = preco;
-    this.estaPago = estaPago;
     this.descricao = descricao;
+    this.estaPago = estaPago;
   }
 
-  public String getPreco() {
+
+  public int getIdServico() {
+    return idServico;
+  }
+
+
+  public void setIdServico(int idServico) {
+    this.idServico = idServico;
+  }
+
+
+  public int getIdAgendamento() {
+    return idAgendamento;
+  }
+
+
+  public void setIdAgendamento(int idAgendamento) {
+    this.idAgendamento = idAgendamento;
+  }
+
+
+  public Date getDataServico() {
+    return dataServico;
+  }
+
+
+  public void setDataServico(Date dataServico) {
+    this.dataServico = dataServico;
+  }
+
+
+  public Time getHoraServico() {
+    return horaServico;
+  }
+
+
+  public void setHoraServico(Time horaServico) {
+    this.horaServico = horaServico;
+  }
+
+
+  public double getPreco() {
     return preco;
   }
 
-  public void setPreco(String preco) {
+
+  public void setPreco(double preco) {
     this.preco = preco;
   }
 
-  public String getEstaPago() {
-    return estaPago;
-  }
-
-  public void setEstaPago(String estaPago) {
-    this.estaPago = estaPago;
-  }
 
   public String getDescricao() {
     return descricao;
   }
 
+
   public void setDescricao(String descricao) {
     this.descricao = descricao;
   }
+
+
+  public int getEstaPago() {
+    return estaPago;
+  }
+
+
+  public void setEstaPago(int estaPago) {
+    this.estaPago = estaPago;
+  }
+
   
 }
