@@ -3,7 +3,6 @@ package DAO;
 import java.sql.SQLException;
 
 import entidades.Prontuario;
-import entidades.Medico;
 import entidades.Paciente;
 
 public class ProntuarioDAO extends DAO {

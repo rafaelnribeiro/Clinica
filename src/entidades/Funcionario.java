@@ -5,6 +5,10 @@ import java.sql.Date;
 public class Funcionario extends Pessoa{
   
   private int codFuncionario;
+  
+  public Funcionario( ) {
+    super();
+  }
 
   public Funcionario(String cpf, String nome, Date data, String telefone, String email, String endereco, String sexo,
       String senha, int codFuncionario) {

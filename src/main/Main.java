@@ -9,6 +9,7 @@ import java.util.List;
 import DAO.AgendamentoDAO;
 import DAO.DoencaDAO;
 import DAO.EspecialidadeDAO;
+import DAO.FuncionarioDAO;
 import DAO.HorarioDAO;
 import DAO.MedicamentoDAO;
 import DAO.MedicoDAO;
@@ -17,6 +18,7 @@ import DAO.ProntuarioDAO;
 import DAO.ServicoDAO;
 import conexao.ConFactory;
 import entidades.Agendamento;
+import entidades.Funcionario;
 import entidades.Horario;
 import entidades.Medico;
 import entidades.Paciente;
@@ -120,7 +122,7 @@ public class Main {
 //  h1.setHoraInicio(Time.valueOf("09:00:00"));
 //  hDAO.update(m1, h1);
 //  hDAO.remove(m1, h1);
-    //
+
 //     List<Medico> medicos = mDAO.retrieveMedicos();
 //     for (Iterator<Medico> iterator = medicos.iterator(); iterator.hasNext();)    
 //     {
@@ -152,11 +154,43 @@ public class Main {
 //    s1.setEstaPago(1);
 //    sDAO.update(a1, s1);
     
+//  Agendamento a4 = aDAO.search(1);
+//  System.out.println(a4.getCpfPaciente() + " " + a4.getCpfMedico());
+    
 //    List<Agendamento> agendamentos = aDAO.retrieveAgendamentos();
 //    for (Iterator<Agendamento> iterator = agendamentos.iterator(); iterator.hasNext();) {
 //      Agendamento agendamento = (Agendamento) iterator.next();
 //      System.out.println(agendamento.getCpfPaciente() + " " + agendamento.getCpfMedico());
 //    }
+    
+    FuncionarioDAO fDAO = new FuncionarioDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
+    Funcionario f1 = new Funcionario("65478932115", "Milda", data, "(84)7894-9874", "milda@gmail.com", "Rua das Oliveiras",
+        "M", "12345", 10);
+    Funcionario f2 = new Funcionario("98745632112", "Solnoba", data, "(84)9512-9874", "solnoba@gmail.com",
+        "Rua das Trincheiras", "M", "12345", 11);
+    Funcionario f3 = new Funcionario("35795148621", "Aceio", data, "(84)7894-9874", "Aceio@gmail.com", "Rua das Oliveiras",
+        "M", "12345", 12);
+    
+    //fDAO.insert(f1);
+    //fDAO.insert(f2);
+    //fDAO.insert(f3);
+    
+    //f1.setCodFuncionario(20);
+    //fDAO.updateFuncionario(f1);
+    //fDAO.remove(f1);
+    //fDAO.remove(f2);
+    //fDAO.remove(f3);
+    
+//    Funcionario f4 = fDAO.search("35795148621");
+//    System.out.println(f4.getNome() + " " +f4.getCodFuncionario());
+    
+//  List<Funcionario> funcionarios = fDAO.retrieveFuncionarios();
+//  for (Iterator<Funcionario> iterator = funcionarios.iterator(); iterator.hasNext();)    
+//  {
+//  Funcionario funcionario = (Funcionario) iterator.next();
+//  System.out.println(funcionario.getNome() + " " +funcionario.getCodFuncionario());
+//  }
+    
     
   }
 }
