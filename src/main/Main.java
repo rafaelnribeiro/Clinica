@@ -1,15 +1,19 @@
 package main;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
 import DAO.DoencaDAO;
 import DAO.EspecialidadeDAO;
+import DAO.HorarioDAO;
 import DAO.MedicamentoDAO;
 import DAO.MedicoDAO;
 import DAO.PacienteDAO;
 import conexao.ConFactory;
+import entidades.Horario;
 import entidades.Medico;
 import entidades.Paciente;
 
@@ -71,6 +75,7 @@ public class Main {
  
     MedicoDAO mDAO = new MedicoDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
     EspecialidadeDAO eDAO = new EspecialidadeDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
+    HorarioDAO hDAO = new HorarioDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
 
     // mDAO.insert(m1);
     // mDAO.insert(m2);
@@ -94,6 +99,16 @@ public class Main {
     //eDAO.insert(m1, e1);
     //eDAO.update(m1, e1, "Reumatologista");
     //eDAO.remove(m1, "Reumatologista");
+    
+//    Time hInicio = Time.valueOf("10:00:00");
+//    Time hfim = Time.valueOf("12:00:00");
+//    Date dInicio = Date.valueOf("2018-12-30");
+//    Date dFim = Date.valueOf("2018-12-30");
+//    Horario h1 = new Horario(1, hInicio, hfim, dInicio, dFim);
+//    hDAO.insert(m1, h1);
+//    h1.setHoraInicio(Time.valueOf("09:00:00"));
+//    hDAO.update(m1, h1);
+//    hDAO.remove(m1, h1);
     
     
     // {
