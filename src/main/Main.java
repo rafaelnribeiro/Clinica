@@ -13,11 +13,13 @@ import DAO.HorarioDAO;
 import DAO.MedicamentoDAO;
 import DAO.MedicoDAO;
 import DAO.PacienteDAO;
+import DAO.ProntuarioDAO;
 import conexao.ConFactory;
 import entidades.Agendamento;
 import entidades.Horario;
 import entidades.Medico;
 import entidades.Paciente;
+import entidades.Prontuario;
 
 public class Main {
 
@@ -37,7 +39,7 @@ public class Main {
     PacienteDAO pDAO = new PacienteDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
     MedicamentoDAO mdDAO = new MedicamentoDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
     DoencaDAO dDAO = new DoencaDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
-    //
+    ProntuarioDAO prDAO = new ProntuarioDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
     //pDAO.insert(p1);
     //pDAO.insert(p2);
     //pDAO.insert(p3);
@@ -60,6 +62,14 @@ public class Main {
 //     dDAO.insert(p1, d1);
 //     dDAO.update(p1, d1, "Tiabetes");
 //     dDAO.remove(p1, "Tiabetes");
+    
+//      Time prHora = Time.valueOf("20:00:00");
+//      Date prData = Date.valueOf("2017-08-22");
+//      Prontuario pr = new Prontuario(1, prData, prHora, "Diagnosticado com gripe");      
+//      prDAO.insert(p1, pr);
+//      pr.setFicha("Diagnosticado com Virose");
+//      prDAO.update(p1, pr);
+//      prDAO.remove(p1, pr);
 
 //    List<Paciente> pacientes = pDAO.retrievePacientes();
 //    for (Iterator<Paciente> iterator = pacientes.iterator(); iterator.hasNext();) {
