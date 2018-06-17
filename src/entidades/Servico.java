@@ -5,7 +5,6 @@ import java.sql.Time;
 
 public class Servico {
   private int idServico;
-  private int idAgendamento;
   private Date dataServico;
   private Time horaServico;
   private double preco;
@@ -18,10 +17,9 @@ public class Servico {
   }
 
 
-  public Servico(int idServico, int idAgendamento, Date dataServico, Time horaServico, double preco, String descricao,
+  public Servico(int idServico, Date dataServico, Time horaServico, double preco, String descricao,
       int estaPago) {
     this.idServico = idServico;
-    this.idAgendamento = idAgendamento;
     this.dataServico = dataServico;
     this.horaServico = horaServico;
     this.preco = preco;
@@ -38,17 +36,6 @@ public class Servico {
   public void setIdServico(int idServico) {
     this.idServico = idServico;
   }
-
-
-  public int getIdAgendamento() {
-    return idAgendamento;
-  }
-
-
-  public void setIdAgendamento(int idAgendamento) {
-    this.idAgendamento = idAgendamento;
-  }
-
 
   public Date getDataServico() {
     return dataServico;

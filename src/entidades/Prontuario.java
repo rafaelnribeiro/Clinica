@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class Prontuario {
+  private int idProntuario;
   private Date data;
   private Time hora;
   private String ficha;
@@ -12,10 +13,19 @@ public class Prontuario {
     super();
   }
   
-  public Prontuario(Date data, Time hora, String ficha) {
+  public Prontuario(int idProntuario, Date data, Time hora, String ficha) {
+    this.setIdProntuario(idProntuario);
     this.data = data;
     this.hora = hora;
     this.ficha = ficha;
+  }
+
+  public int getIdProntuario() {
+    return idProntuario;
+  }
+
+  public void setIdProntuario(int idProntuario) {
+    this.idProntuario = idProntuario;
   }
 
   public Date getData() {

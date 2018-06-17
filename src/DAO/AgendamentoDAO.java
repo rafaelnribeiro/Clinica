@@ -98,7 +98,7 @@ public class AgendamentoDAO extends DAO {
       }
       
       buffer.setLength(0);
-      buffer.append("SELECT id_servico, id_age_servico, horaServico, dataServico, preco, descricao, estaPago");
+      buffer.append("SELECT id_servico, horaServico, dataServico, preco, descricao, estaPago");
       buffer.append(" FROM AGENDAMENTO_SERVICO WHERE id_age_servico=");
       buffer.append(retornarValorStringBD(Integer.toString(id)));
       sql = buffer.toString();
@@ -106,7 +106,6 @@ public class AgendamentoDAO extends DAO {
       while(rs.next()) {
         Servico servico = new Servico();
         servico.setIdServico(rs.getInt("id_servico"));
-        servico.setIdAgendamento(rs.getInt("id_age_servico"));
         servico.setHoraServico(rs.getTime("horaServico"));
         servico.setDataServico(rs.getDate("dataServico"));
         servico.setPreco(rs.getDouble("preco"));
@@ -153,7 +152,7 @@ public class AgendamentoDAO extends DAO {
         Agendamento agendamento = (Agendamento) iterator.next();
         
         StringBuffer buffer = new StringBuffer();
-        buffer.append("SELECT id_servico, id_age_servico, horaServico, dataServico, preco, descricao, estaPago");
+        buffer.append("SELECT id_servico, horaServico, dataServico, preco, descricao, estaPago");
         buffer.append(" FROM AGENDAMENTO_SERVICO WHERE id_age_servico=");
         buffer.append(retornarValorStringBD(Integer.toString(agendamento.getIdAgendamento())));
         sql = buffer.toString();
@@ -161,7 +160,6 @@ public class AgendamentoDAO extends DAO {
         while(rs.next()) {
           Servico servico = new Servico();
           servico.setIdServico(rs.getInt("id_servico"));
-          servico.setIdAgendamento(rs.getInt("id_age_servico"));
           servico.setHoraServico(rs.getTime("horaServico"));
           servico.setDataServico(rs.getDate("dataServico"));
           servico.setPreco(rs.getDouble("preco"));

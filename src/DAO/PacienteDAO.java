@@ -130,10 +130,11 @@ public class PacienteDAO extends DAO {
         paciente.getDoencasCronicas().add(rs.getString("doenca"));
       }
       
-      sql = "SELECT data, hora, ficha FROM PAC_PRONTUARIO WHERE cpfPacienteProntuario=" + retornarValorStringBD(cpf);
+      sql = "SELECT id_prontuario, data, hora, ficha FROM PAC_PRONTUARIO WHERE cpfPacienteProntuario=" + retornarValorStringBD(cpf);
       rs = comando.executeQuery(sql);
       while(rs.next()) {
         Prontuario prontuario = new Prontuario();
+        prontuario.setIdProntuario(rs.getInt("id_prontuario"));
         prontuario.setData(rs.getDate("data"));
         prontuario.setHora(rs.getTime("hora"));
         prontuario.setFicha(rs.getString("ficha"));       
@@ -202,12 +203,13 @@ public class PacienteDAO extends DAO {
           paciente.getDoencasCronicas().add(rs.getString("doenca"));
         }
         
-        sql = "SELECT data, hora, ficha FROM PAC_PRONTUARIO WHERE cpfPacienteProntuario="
+        sql = "SELECT id_prontuario data, hora, ficha FROM PAC_PRONTUARIO WHERE cpfPacienteProntuario="
             + retornarValorStringBD(paciente.getCpf());
         rs = comando.executeQuery(sql);
         
-        if(rs.next()) {
+        while(rs.next()) {
           Prontuario prontuario = new Prontuario();
+          prontuario.setIdProntuario(rs.getInt("id_prontuario"));
           prontuario.setData(rs.getDate("data"));
           prontuario.setHora(rs.getTime("hora"));
           prontuario.setFicha(rs.getString("ficha"));       
