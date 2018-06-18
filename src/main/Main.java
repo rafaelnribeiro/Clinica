@@ -16,6 +16,7 @@ import DAO.MedicoDAO;
 import DAO.PacienteDAO;
 import DAO.ProntuarioDAO;
 import DAO.ServicoDAO;
+import DAO.UnidadeDAO;
 import conexao.ConFactory;
 import entidades.Agendamento;
 import entidades.Funcionario;
@@ -24,12 +25,34 @@ import entidades.Medico;
 import entidades.Paciente;
 import entidades.Prontuario;
 import entidades.Servico;
+import entidades.Unidade;
 
 public class Main {
 
   public static void main(String[] args) throws Exception {
     SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
     java.sql.Date data = new java.sql.Date(format.parse("1990-10-10").getTime());
+    
+    
+    Unidade u1 = new Unidade(1, "unidade", "rua das avenidas");
+    Unidade u2 = new Unidade(2, "unidade", "rua das travessas");
+    Unidade u3 = new Unidade(3, "unidade", "rua dos becos");
+    UnidadeDAO uDAO = new UnidadeDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
+//    uDAO.insert(u1);
+//    uDAO.insert(u2);
+//    uDAO.insert(u3);
+    //u1.setNome("Unidade");
+    //uDAO.updateUnidade(u1);
+    //uDAO.remove(u1);
+    
+//    uDAO.search(1);
+//    System.out.println(u1.getNome() + " " + u1.getNumUnidade());
+    
+//  List<Unidade> unidades = uDAO.retrieveUnidades();
+//  for (Iterator<Unidade> iterator = unidades.iterator(); iterator.hasNext();) {
+//    Unidade unidade = (Unidade) iterator.next();
+//    System.out.println(unidade.getNome() + " " + unidade.getNumUnidade());
+//  }
 
     Paciente p1 = new Paciente("12345678901", "Fulano", data, "(84)7894-9874", "fulano@gmail.com", "Rua das Oliveiras",
         "M", "12345", "O+", 50, 1.5);
@@ -40,13 +63,13 @@ public class Main {
 
     // PacienteDAO pDAO = new PacienteDAO("jdbc:mysql://localhost/clinica",
     // "aluno", "aluno", ConFactory.MYSQL);
-    PacienteDAO pDAO = new PacienteDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
-    MedicamentoDAO mdDAO = new MedicamentoDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
-    DoencaDAO dDAO = new DoencaDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
-    ProntuarioDAO prDAO = new ProntuarioDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
-    //pDAO.insert(p1);
-    //pDAO.insert(p2);
-    //pDAO.insert(p3);
+    PacienteDAO pDAO = new PacienteDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
+    MedicamentoDAO mdDAO = new MedicamentoDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
+    DoencaDAO dDAO = new DoencaDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
+    ProntuarioDAO prDAO = new ProntuarioDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
+//    pDAO.insert(p1);
+//    pDAO.insert(p2);
+//    pDAO.insert(p3);
     //
     // p1.setNome("Joaquim");
     // p1.setAltura(1.75);
@@ -89,9 +112,9 @@ public class Main {
         "12345", "3333", 1);
 
  
-    MedicoDAO mDAO = new MedicoDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
-    EspecialidadeDAO eDAO = new EspecialidadeDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
-    HorarioDAO hDAO = new HorarioDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
+    MedicoDAO mDAO = new MedicoDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
+    EspecialidadeDAO eDAO = new EspecialidadeDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
+    HorarioDAO hDAO = new HorarioDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
 
 //     mDAO.insert(m1);
 //     mDAO.insert(m2);
@@ -130,8 +153,8 @@ public class Main {
 //     System.out.println(medico.getNome() + " " +medico.getCrm());
 //     }
     
-    AgendamentoDAO aDAO = new AgendamentoDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
-    ServicoDAO sDAO = new ServicoDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
+    AgendamentoDAO aDAO = new AgendamentoDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
+    ServicoDAO sDAO = new ServicoDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
     Time horaAg = Time.valueOf("15:00:00");
     Date dataAg = Date.valueOf("2018-10-25");    
     Agendamento a1 = new Agendamento(1, "12345678901", "55555555555", dataAg, horaAg, "Agendado?", "A vida é bela");
@@ -157,13 +180,13 @@ public class Main {
 //  Agendamento a4 = aDAO.search(1);
 //  System.out.println(a4.getCpfPaciente() + " " + a4.getCpfMedico());
     
-//    List<Agendamento> agendamentos = aDAO.retrieveAgendamentos();
-//    for (Iterator<Agendamento> iterator = agendamentos.iterator(); iterator.hasNext();) {
-//      Agendamento agendamento = (Agendamento) iterator.next();
-//      System.out.println(agendamento.getCpfPaciente() + " " + agendamento.getCpfMedico());
-//    }
+    List<Agendamento> agendamentos = aDAO.retrieveAgendamentos(m2);
+    for (Iterator<Agendamento> iterator = agendamentos.iterator(); iterator.hasNext();) {
+      Agendamento agendamento = (Agendamento) iterator.next();
+      System.out.println(agendamento.getCpfPaciente() + " " + agendamento.getCpfMedico());
+    }
     
-    FuncionarioDAO fDAO = new FuncionarioDAO("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
+    FuncionarioDAO fDAO = new FuncionarioDAO("jdbc:mysql://localhost/clinica", "aluno", "aluno", ConFactory.MYSQL);
     Funcionario f1 = new Funcionario("65478932115", "Milda", data, "(84)7894-9874", "milda@gmail.com", "Rua das Oliveiras",
         "M", "12345", 10);
     Funcionario f2 = new Funcionario("98745632112", "Solnoba", data, "(84)9512-9874", "solnoba@gmail.com",

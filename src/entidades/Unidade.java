@@ -6,14 +6,19 @@ public class Unidade {
   private String nome;
   private String endereco;
   
+  public Unidade() {
+	super();
+  }
+  
   public Unidade(int numUnidade, String nome, String endereco) {
-    super();
     this.numUnidade = numUnidade;
     this.nome = nome;
     this.endereco = endereco;
   }
 
-  public int getNumUnidade() {
+
+
+public int getNumUnidade() {
     return numUnidade;
   }
 
