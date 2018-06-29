@@ -1,53 +1,67 @@
 package dao;
 
+import entidades.Horario;
+import entidades.Medico;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import entidades.Horario;
-import entidades.Medico;
-
+/**
+ * Classe para realizar consultas na tabela Medico.
+ * @author      Rafael do Nascimento Ribeiro
+ * @version     1.0, 20 Jun 2018
+ */
 public class MedicoDao extends Dao {
 
-  public MedicoDao(String server, String user, String password, int banco) {
-    super(server, user, password, banco);
+  public MedicoDao(String url, String usuario, String senha, int banco) {
+    super(url, usuario, senha, banco);
   }
 
-  public void insert(Medico medico) {
+  /**
+   * Insere um novo medico no banco.
+   * Insere uma nova tupla na tabela PESSOA e sua tupla correspondente na tabela MEDICO.
+   * @param medico objeto contendo as informacoes a serem inseridas
+   * @throws SQLException ja exista uma tupla com o mesmo cpf que o medico a ser inserido
+   */
+  public void inserir(Medico medico) throws SQLException {
     try {
 
       conectar();
 
       StringBuffer buffer = new StringBuffer();
-      buffer.append("INSERT INTO pessoa (");
+      buffer.append("INSERT INTO PESSOA (");
       buffer.append("cpf, nome, dataNascimento, telefone, email, endereco, sexo, senha");
       buffer.append(") VALUES (");
-      buffer.append(retornarValorBDPessoa(medico));
+      buffer.append(retornarValoresPessoa(medico));
       buffer.append(");");
       String sql = buffer.toString();
       comando.executeUpdate(sql);
 
       buffer.setLength(0);
-      buffer.append("INSERT INTO medico (");
+      buffer.append("INSERT INTO MEDICO (");
       buffer.append("cpfMedico, crm, numUnidadeMedico");
       buffer.append(") VALUES (");
-      buffer.append(retornarValorBDMedico(medico));
+      buffer.append(retornarValoresMedico(medico));
       buffer.append(");");
       sql = buffer.toString();
       comando.executeUpdate(sql);
 
       fechar();
-
-    } catch (SQLException e) {
-      e.printStackTrace();
+      
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
   }
 
-  public void remove(Medico medico) {
+  /**
+   * Remove um medico do banco.
+   * Remove uma tupla da tabela PESSOA e, por CASCADE,
+   * todas as tuplas correspondentes nas outras tabelas do banco.
+   * @param medico a ser removido
+   */
+  public void remover(Medico medico) {
     try {
       conectar();
 
@@ -62,21 +76,27 @@ public class MedicoDao extends Dao {
     }
   }
 
-  public void updateMedico(Medico medico) {
+  /**
+   * Altera informacoes de um medico no banco.
+   * Altera uma tupla na tabela PESSOA e sua tupla correspondente na tabela MEDICO.
+   * Modifica apenas os atributos que nao sao chave primaria.
+   * @param medico medico com os atributos atualizados
+   */
+  public void atualizarMedico(Medico medico) {
     try {
 
       conectar();
 
       StringBuffer buffer = new StringBuffer();
       buffer.append("UPDATE PESSOA SET ");
-      buffer.append(retornarCamposBDPessoa(medico));
+      buffer.append(retornarCamposPessoa(medico));
       buffer.append(" WHERE cpf=" + formatarParaStringSql(medico.getCpf()));
       String sql = buffer.toString();
       comando.executeUpdate(sql);
 
       buffer.setLength(0);
       buffer.append("UPDATE MEDICO SET ");
-      buffer.append(retornarCamposBDMedico(medico));
+      buffer.append(retornarCamposMedico(medico));
       buffer.append(" WHERE cpfMedico=" + formatarParaStringSql(medico.getCpf()));
       sql = buffer.toString();
       comando.executeUpdate(sql);
@@ -90,7 +110,14 @@ public class MedicoDao extends Dao {
     }
   }
   
-  public Medico search(String cpf) {
+  /**
+   * Busca por um medico no banco.
+   * Consulta uma tupla na tabela PESSOA e suas tuplas correspondente nas demais tabelas do banco.
+   * @param cpf CPF do medico procurado
+   * @return medico objeto contendo as informacoes do medico caso exista,
+   *        objeto null caso contrario
+   */
+  public Medico buscar(String cpf) {
     try {
       conectar();
       
@@ -107,50 +134,58 @@ public class MedicoDao extends Dao {
         medico.setEndereco(rs.getString("endereco"));
         medico.setSexo(rs.getString("sexo"));
         medico.setSenha(rs.getString("senha"));
-      }
-      
-      sql = "SELECT * FROM MEDICO WHERE cpfMedico=" + formatarParaStringSql(cpf);
-      rs = comando.executeQuery(sql);
-      
-      if (rs.next()) {        
-        medico.setCrm(rs.getString("crm"));
-        medico.setNumUnidade(rs.getInt("numUnidadeMedico"));
-      }
-      
-      sql = "SELECT especialidade FROM MED_ESPECIALIDADE WHERE cpfEspecialidade="
-          + formatarParaStringSql(cpf);
-      rs = comando.executeQuery(sql);
-      while(rs.next()) {
-        medico.getEspecialidades().add(rs.getString("medicamento"));
-      }
-            
-      sql = "SELECT id_horario, horaInicio, horaFim, dataInicio, dataFim"
-          + " FROM MED_HORARIO WHERE cpfMedicoHorario=" + formatarParaStringSql(cpf);
-      rs = comando.executeQuery(sql);
-      while(rs.next()) {
-        Horario horario = new Horario();
-        horario.setIdHorario(rs.getInt("id_horario"));
-        horario.setHoraInicio(rs.getTime("horaInicio"));
-        horario.setHoraFim(rs.getTime("horaFim"));
-        horario.setDataInicio(rs.getDate("dataInicio"));
-        horario.setDataFim(rs.getDate("dataFim"));
         
-        medico.getHorarios().add(horario);
-      }
-      
-      fechar();
-      
-      return medico;
-      
+        sql = "SELECT * FROM MEDICO WHERE cpfMedico=" + formatarParaStringSql(cpf);
+        rs = comando.executeQuery(sql);
+        
+        if (rs.next()) {        
+          medico.setCrm(rs.getString("crm"));
+          medico.setNumUnidade(rs.getInt("numUnidadeMedico"));
+        }
+        
+        sql = "SELECT especialidade FROM MED_ESPECIALIDADE WHERE cpfEspecialidade="
+            + formatarParaStringSql(cpf);
+        rs = comando.executeQuery(sql);
+        while (rs.next()) {
+          medico.getEspecialidades().add(rs.getString("medicamento"));
+        }
+              
+        sql = "SELECT id_horario, horaInicio, horaFim, dataInicio, dataFim"
+            + " FROM MED_HORARIO WHERE cpfMedicoHorario=" + formatarParaStringSql(cpf);
+        rs = comando.executeQuery(sql);
+        while (rs.next()) {
+          Horario horario = new Horario();
+          horario.setIdHorario(rs.getInt("id_horario"));
+          horario.setHoraInicio(rs.getTime("horaInicio"));
+          horario.setHoraFim(rs.getTime("horaFim"));
+          horario.setDataInicio(rs.getDate("dataInicio"));
+          horario.setDataFim(rs.getDate("dataFim"));
+          
+          medico.getHorarios().add(horario);
+        }
+        
+        fechar();        
+        return medico;
+        
+      } else {
+        fechar();
+        return null;
+      }       
     } catch (SQLException e) {
       e.printStackTrace();
-    } catch (ClassNotFoundException e){
+    } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
     return null;
   }
   
-  public List<Medico> retrieveMedicos() {
+  /**
+   * Recupera todos os medicos no banco.
+   * Consulta todas as tuplas da tabela MEDICO e 
+   * suas tuplas correspondetes nas demais tabelas do banco. 
+   * @return Lista com todos os medicos da tabela
+   */
+  public List<Medico> recuperarMedicos() {
     try {
       conectar();
       
@@ -187,14 +222,14 @@ public class MedicoDao extends Dao {
         sql = "SELECT especialidade FROM MED_ESPECIALIDADE WHERE cpfEspecialidade="
             + formatarParaStringSql(medico.getCpf());
         rs = comando.executeQuery(sql);
-        while(rs.next()) {
+        while (rs.next()) {
           medico.getEspecialidades().add(rs.getString("medicamento"));
         }
               
         sql = "SELECT id_horario, horaInicio, horaFim, dataInicio, dataFim"
             + " FROM MED_HORARIO WHERE cpfMedicoHorario=" + formatarParaStringSql(medico.getCpf());
         rs = comando.executeQuery(sql);
-        while(rs.next()) {
+        while (rs.next()) {
           Horario horario = new Horario();
           horario.setIdHorario(rs.getInt("id_horario"));
           horario.setHoraInicio(rs.getTime("horaInicio"));
@@ -212,27 +247,31 @@ public class MedicoDao extends Dao {
       
     } catch (SQLException e) {
       e.printStackTrace();
-    } catch (ClassNotFoundException e){
+    } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
     return null;
   }
   
-  private String retornarValorBDMedico(Medico medico) {
+  private String retornarValoresMedico(Medico medico) {
     return 
         formatarParaStringSql(medico.getCpf()) + ", "
         + formatarParaStringSql(medico.getCrm()) + ", "
         + formatarParaStringSql(Integer.toString(medico.getNumUnidade()));
   }
 
-  private String retornarValorBDPessoa(Medico medico) {
-    return formatarParaStringSql(medico.getCpf()) + ", " + formatarParaStringSql(medico.getNome()) + ", "
-        + formatarParaStringSql(medico.getData().toString()) + ", " + formatarParaStringSql(medico.getTelefone())
-        + ", " + formatarParaStringSql(medico.getEmail()) + ", " + formatarParaStringSql(medico.getEndereco())
-        + ", " + formatarParaStringSql(medico.getSexo()) + ", " + formatarParaStringSql(medico.getSenha());
+  private String retornarValoresPessoa(Medico medico) {
+    return formatarParaStringSql(medico.getCpf()) + ", "
+        + formatarParaStringSql(medico.getNome()) + ", "
+        + formatarParaStringSql(medico.getData().toString()) + ", "
+        + formatarParaStringSql(medico.getTelefone()) + ", "
+        + formatarParaStringSql(medico.getEmail()) + ", "
+        + formatarParaStringSql(medico.getEndereco()) + ", " 
+        + formatarParaStringSql(medico.getSexo()) + ", "
+        + formatarParaStringSql(medico.getSenha());
   }
 
-  private String retornarCamposBDPessoa(Medico medico) {
+  private String retornarCamposPessoa(Medico medico) {
     StringBuffer buffer = new StringBuffer();
     buffer.append("cpf= ");
     buffer.append(formatarParaStringSql(medico.getCpf()));
@@ -255,7 +294,7 @@ public class MedicoDao extends Dao {
 
   }
 
-  private String retornarCamposBDMedico(Medico medico) {
+  private String retornarCamposMedico(Medico medico) {
     StringBuffer buffer = new StringBuffer();
     buffer.append("cpfMedico= ");
     buffer.append(formatarParaStringSql(medico.getCpf()));
