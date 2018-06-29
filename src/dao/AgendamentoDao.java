@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,9 +11,9 @@ import entidades.Medico;
 import entidades.Paciente;
 import entidades.Servico;
 
-public class AgendamentoDAO extends DAO {
+public class AgendamentoDao extends Dao {
 
-  public AgendamentoDAO(String server, String user, String password, int banco) {
+  public AgendamentoDao(String server, String user, String password, int banco) {
     super(server, user, password, banco);
   }
 
@@ -45,7 +45,7 @@ public class AgendamentoDAO extends DAO {
       conectar();
 
       String sql = ("DELETE FROM AGENDAMENTO WHERE id_agendamento= " 
-          + retornarValorStringBD(Integer.toString(agendamento.getIdAgendamento())));
+          + formatarParaStringSql(Integer.toString(agendamento.getIdAgendamento())));
       comando.executeUpdate(sql);
 
       fechar();
@@ -65,7 +65,7 @@ public class AgendamentoDAO extends DAO {
       buffer.append("UPDATE AGENDAMENTO SET ");
       buffer.append(retornarCamposBD(agendamento));
       buffer.append(" WHERE id_agendamento=");
-      buffer.append(retornarValorStringBD(Integer.toString(agendamento.getIdAgendamento())));
+      buffer.append(formatarParaStringSql(Integer.toString(agendamento.getIdAgendamento())));
       String sql = buffer.toString();
       comando.executeUpdate(sql);
 
@@ -84,7 +84,7 @@ public class AgendamentoDAO extends DAO {
       
       StringBuffer buffer = new StringBuffer();
       buffer.append("SELECT * FROM AGENDAMENTO WHERE id_agendamento=");
-      buffer.append(retornarValorStringBD(Integer.toString(id)));      
+      buffer.append(formatarParaStringSql(Integer.toString(id)));      
       String sql = buffer.toString();
       ResultSet rs = comando.executeQuery(sql);
       
@@ -102,7 +102,7 @@ public class AgendamentoDAO extends DAO {
       buffer.setLength(0);
       buffer.append("SELECT id_servico, horaServico, dataServico, preco, descricao, estaPago");
       buffer.append(" FROM AGENDAMENTO_SERVICO WHERE id_age_servico=");
-      buffer.append(retornarValorStringBD(Integer.toString(id)));
+      buffer.append(formatarParaStringSql(Integer.toString(id)));
       sql = buffer.toString();
       rs = comando.executeQuery(sql);
       while(rs.next()) {
@@ -156,7 +156,7 @@ public class AgendamentoDAO extends DAO {
         StringBuffer buffer = new StringBuffer();
         buffer.append("SELECT id_servico, horaServico, dataServico, preco, descricao, estaPago");
         buffer.append(" FROM AGENDAMENTO_SERVICO WHERE id_age_servico=");
-        buffer.append(retornarValorStringBD(Integer.toString(agendamento.getIdAgendamento())));
+        buffer.append(formatarParaStringSql(Integer.toString(agendamento.getIdAgendamento())));
         sql = buffer.toString();
         rs = comando.executeQuery(sql);
         while(rs.next()) {
@@ -188,7 +188,7 @@ public class AgendamentoDAO extends DAO {
 	    try {
 	      conectar();
 	      
-	      String sql = "SELECT * FROM AGENDAMENTO WHERE cpfPacienteAgenda= " + retornarValorStringBD(paciente.getCpf());
+	      String sql = "SELECT * FROM AGENDAMENTO WHERE cpfPacienteAgenda= " + formatarParaStringSql(paciente.getCpf());
 	      ResultSet rs = comando.executeQuery(sql);
 	      
 	      List<Agendamento> agendamentos = new ArrayList<Agendamento>();
@@ -211,7 +211,7 @@ public class AgendamentoDAO extends DAO {
 	        StringBuffer buffer = new StringBuffer();
 	        buffer.append("SELECT id_servico, horaServico, dataServico, preco, descricao, estaPago");
 	        buffer.append(" FROM AGENDAMENTO_SERVICO WHERE id_age_servico=");
-	        buffer.append(retornarValorStringBD(Integer.toString(agendamento.getIdAgendamento())));
+	        buffer.append(formatarParaStringSql(Integer.toString(agendamento.getIdAgendamento())));
 	        sql = buffer.toString();
 	        rs = comando.executeQuery(sql);
 	        while(rs.next()) {
@@ -244,7 +244,7 @@ public class AgendamentoDAO extends DAO {
 	    try {
 	      conectar();
 	      
-	      String sql = "SELECT * FROM AGENDAMENTO WHERE cpfMedico= " + retornarValorStringBD(medico.getCpf());
+	      String sql = "SELECT * FROM AGENDAMENTO WHERE cpfMedico= " + formatarParaStringSql(medico.getCpf());
 	      ResultSet rs = comando.executeQuery(sql);
 	      
 	      List<Agendamento> agendamentos = new ArrayList<Agendamento>();
@@ -267,7 +267,7 @@ public class AgendamentoDAO extends DAO {
 	        StringBuffer buffer = new StringBuffer();
 	        buffer.append("SELECT id_servico, horaServico, dataServico, preco, descricao, estaPago");
 	        buffer.append(" FROM AGENDAMENTO_SERVICO WHERE id_age_servico=");
-	        buffer.append(retornarValorStringBD(Integer.toString(agendamento.getIdAgendamento())));
+	        buffer.append(formatarParaStringSql(Integer.toString(agendamento.getIdAgendamento())));
 	        sql = buffer.toString();
 	        rs = comando.executeQuery(sql);
 	        while(rs.next()) {
@@ -297,31 +297,31 @@ public class AgendamentoDAO extends DAO {
 	  }
   
   private String retornarValorBD(Agendamento agendamento) {
-    return retornarValorStringBD(Integer.toString(agendamento.getIdAgendamento())) + ", " 
-        + retornarValorStringBD(agendamento.getCpfPaciente()) + ", "
-        + retornarValorStringBD(agendamento.getCpfMedico()) + ", "
-        + retornarValorStringBD(agendamento.getData().toString()) + ", "
-        + retornarValorStringBD(agendamento.getHora().toString()) + ", "
-        + retornarValorStringBD(agendamento.getStatus()) + ", "
-        + retornarValorStringBD(agendamento.getComentario());
+    return formatarParaStringSql(Integer.toString(agendamento.getIdAgendamento())) + ", " 
+        + formatarParaStringSql(agendamento.getCpfPaciente()) + ", "
+        + formatarParaStringSql(agendamento.getCpfMedico()) + ", "
+        + formatarParaStringSql(agendamento.getData().toString()) + ", "
+        + formatarParaStringSql(agendamento.getHora().toString()) + ", "
+        + formatarParaStringSql(agendamento.getStatus()) + ", "
+        + formatarParaStringSql(agendamento.getComentario());
   }
 
   private String retornarCamposBD(Agendamento agendamento) {
     StringBuffer buffer = new StringBuffer();
     buffer.append("id_agendamento= ");
-    buffer.append(retornarValorStringBD(Integer.toString(agendamento.getIdAgendamento())));
+    buffer.append(formatarParaStringSql(Integer.toString(agendamento.getIdAgendamento())));
     buffer.append(", cpfPacienteAgenda= ");
-    buffer.append(retornarValorStringBD(agendamento.getCpfPaciente()));
+    buffer.append(formatarParaStringSql(agendamento.getCpfPaciente()));
     buffer.append(", cpfMedico= ");
-    buffer.append(retornarValorStringBD(agendamento.getCpfMedico()));
+    buffer.append(formatarParaStringSql(agendamento.getCpfMedico()));
     buffer.append(", data= ");
-    buffer.append(retornarValorStringBD(agendamento.getData().toString()));
+    buffer.append(formatarParaStringSql(agendamento.getData().toString()));
     buffer.append(", hora= ");
-    buffer.append(retornarValorStringBD(agendamento.getHora().toString()));
+    buffer.append(formatarParaStringSql(agendamento.getHora().toString()));
     buffer.append(", status= ");
-    buffer.append(retornarValorStringBD(agendamento.getStatus()));
+    buffer.append(formatarParaStringSql(agendamento.getStatus()));
     buffer.append(", comentario= ");
-    buffer.append(retornarValorStringBD(agendamento.getComentario()));
+    buffer.append(formatarParaStringSql(agendamento.getComentario()));
 
     return buffer.toString();
 

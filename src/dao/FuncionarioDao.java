@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,9 +8,9 @@ import java.util.List;
 
 import entidades.Funcionario;
 
-public class FuncionarioDAO extends DAO {
+public class FuncionarioDao extends Dao {
 
-  public FuncionarioDAO(String server, String user, String password, int banco) {
+  public FuncionarioDao(String server, String user, String password, int banco) {
     super(server, user, password, banco);
   }
 
@@ -50,7 +50,7 @@ public class FuncionarioDAO extends DAO {
     try {
       conectar();
 
-      String sql = ("DELETE FROM PESSOA WHERE cpf= " + retornarValorStringBD(funcionario.getCpf()));
+      String sql = ("DELETE FROM PESSOA WHERE cpf= " + formatarParaStringSql(funcionario.getCpf()));
       comando.executeUpdate(sql);
 
       fechar();
@@ -69,14 +69,14 @@ public class FuncionarioDAO extends DAO {
       StringBuffer buffer = new StringBuffer();
       buffer.append("UPDATE PESSOA SET ");
       buffer.append(retornarCamposBDPessoa(funcionario));
-      buffer.append(" WHERE cpf=" + retornarValorStringBD(funcionario.getCpf()));
+      buffer.append(" WHERE cpf=" + formatarParaStringSql(funcionario.getCpf()));
       String sql = buffer.toString();
       comando.executeUpdate(sql);
 
       buffer.setLength(0);
       buffer.append("UPDATE FUNCIONARIO SET ");
       buffer.append(retornarCamposBDFuncionario(funcionario));
-      buffer.append(" WHERE cpfFuncionario=" + retornarValorStringBD(funcionario.getCpf()));
+      buffer.append(" WHERE cpfFuncionario=" + formatarParaStringSql(funcionario.getCpf()));
       sql = buffer.toString();
       comando.executeUpdate(sql);
 
@@ -93,7 +93,7 @@ public class FuncionarioDAO extends DAO {
     try {
       conectar();
       
-      String sql = "SELECT * FROM PESSOA WHERE cpf=" + retornarValorStringBD(cpf);
+      String sql = "SELECT * FROM PESSOA WHERE cpf=" + formatarParaStringSql(cpf);
       ResultSet rs = comando.executeQuery(sql);
       
       Funcionario funcionario= new Funcionario();
@@ -108,7 +108,7 @@ public class FuncionarioDAO extends DAO {
         funcionario.setSenha(rs.getString("senha"));
       }
       
-      sql = "SELECT * FROM FUNCIONARIO WHERE cpfFuncionario=" + retornarValorStringBD(cpf);
+      sql = "SELECT * FROM FUNCIONARIO WHERE cpfFuncionario=" + formatarParaStringSql(cpf);
       rs = comando.executeQuery(sql);
       
       if (rs.next()) {        
@@ -148,7 +148,7 @@ public class FuncionarioDAO extends DAO {
         
         
         sql = "SELECT * FROM PESSOA WHERE cpf="
-            + retornarValorStringBD(funcionario.getCpf());
+            + formatarParaStringSql(funcionario.getCpf());
         rs = comando.executeQuery(sql);
         if (rs.next()) {
           funcionario.setNome(rs.getString("nome"));
@@ -174,39 +174,39 @@ public class FuncionarioDAO extends DAO {
   }
   
   private String retornarValorBDFuncionario(Funcionario funcionario) {
-    return retornarValorStringBD(funcionario.getCpf()) + ", "
-        + retornarValorStringBD(Integer.toString(funcionario.getCodFuncionario()));
+    return formatarParaStringSql(funcionario.getCpf()) + ", "
+        + formatarParaStringSql(Integer.toString(funcionario.getCodFuncionario()));
   }
 
   private String retornarValorBDPessoa(Funcionario funcionario) {
-    return retornarValorStringBD(funcionario.getCpf()) + ", " 
-        + retornarValorStringBD(funcionario.getNome()) + ", "
-        + retornarValorStringBD(funcionario.getData().toString()) + ", " 
-        + retornarValorStringBD(funcionario.getTelefone()) + ", "
-        + retornarValorStringBD(funcionario.getEmail()) + ", " 
-        + retornarValorStringBD(funcionario.getEndereco()) + ", "
-        + retornarValorStringBD(funcionario.getSexo()) + ", " 
-        + retornarValorStringBD(funcionario.getSenha());
+    return formatarParaStringSql(funcionario.getCpf()) + ", " 
+        + formatarParaStringSql(funcionario.getNome()) + ", "
+        + formatarParaStringSql(funcionario.getData().toString()) + ", " 
+        + formatarParaStringSql(funcionario.getTelefone()) + ", "
+        + formatarParaStringSql(funcionario.getEmail()) + ", " 
+        + formatarParaStringSql(funcionario.getEndereco()) + ", "
+        + formatarParaStringSql(funcionario.getSexo()) + ", " 
+        + formatarParaStringSql(funcionario.getSenha());
   }
 
   private String retornarCamposBDPessoa(Funcionario funcionario) {
     StringBuffer buffer = new StringBuffer();
     buffer.append("cpf= ");
-    buffer.append(retornarValorStringBD(funcionario.getCpf()));
+    buffer.append(formatarParaStringSql(funcionario.getCpf()));
     buffer.append(", nome= ");
-    buffer.append(retornarValorStringBD(funcionario.getNome()));
+    buffer.append(formatarParaStringSql(funcionario.getNome()));
     buffer.append(", dataNascimento= ");
-    buffer.append(retornarValorStringBD(funcionario.getData().toString()));
+    buffer.append(formatarParaStringSql(funcionario.getData().toString()));
     buffer.append(", telefone= ");
-    buffer.append(retornarValorStringBD(funcionario.getTelefone()));
+    buffer.append(formatarParaStringSql(funcionario.getTelefone()));
     buffer.append(", email= ");
-    buffer.append(retornarValorStringBD(funcionario.getEmail()));
+    buffer.append(formatarParaStringSql(funcionario.getEmail()));
     buffer.append(", endereco= ");
-    buffer.append(retornarValorStringBD(funcionario.getEndereco()));
+    buffer.append(formatarParaStringSql(funcionario.getEndereco()));
     buffer.append(", sexo= ");
-    buffer.append(retornarValorStringBD(funcionario.getSexo()));
+    buffer.append(formatarParaStringSql(funcionario.getSexo()));
     buffer.append(", senha= ");
-    buffer.append(retornarValorStringBD(funcionario.getSenha()));
+    buffer.append(formatarParaStringSql(funcionario.getSenha()));
 
     return buffer.toString();
 
@@ -215,7 +215,7 @@ public class FuncionarioDAO extends DAO {
   private String retornarCamposBDFuncionario(Funcionario funcionario) {
     StringBuffer buffer = new StringBuffer();
     buffer.append("cpfFuncionario= ");
-    buffer.append(retornarValorStringBD(funcionario.getCpf()));
+    buffer.append(formatarParaStringSql(funcionario.getCpf()));
     buffer.append(", codFuncionario= ");
     buffer.append(Integer.toString(funcionario.getCodFuncionario()));
 

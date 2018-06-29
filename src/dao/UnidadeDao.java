@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,9 +8,9 @@ import java.util.List;
 
 import entidades.Unidade;
 
-public class UnidadeDAO extends DAO {
+public class UnidadeDao extends Dao {
 
-  public UnidadeDAO(String server, String user, String password, int banco) {
+  public UnidadeDao(String server, String user, String password, int banco) {
     super(server, user, password, banco);
   }
 
@@ -130,8 +130,8 @@ public class UnidadeDAO extends DAO {
 
   private String retornarValorBD(Unidade unidade) {
     return Integer.toString(unidade.getNumUnidade()) + ", "
-    	+ retornarValorStringBD(unidade.getNome()) + ", "
-        + retornarValorStringBD(unidade.getEndereco());
+    	+ formatarParaStringSql(unidade.getNome()) + ", "
+        + formatarParaStringSql(unidade.getEndereco());
   }
 
   private String retornarCamposBD(Unidade unidade) {
@@ -139,9 +139,9 @@ public class UnidadeDAO extends DAO {
     buffer.append("numUnidade= ");
     buffer.append(Integer.toString(unidade.getNumUnidade()));
     buffer.append(", nome= ");
-    buffer.append(retornarValorStringBD(unidade.getNome()));
+    buffer.append(formatarParaStringSql(unidade.getNome()));
     buffer.append(", endereco= ");
-    buffer.append(retornarValorStringBD(unidade.getEndereco()));
+    buffer.append(formatarParaStringSql(unidade.getEndereco()));
 
     return buffer.toString();
   }

@@ -1,13 +1,13 @@
-package DAO;
+package dao;
 
 import java.sql.SQLException;
 
 import entidades.Prontuario;
 import entidades.Paciente;
 
-public class ProntuarioDAO extends DAO {
+public class ProntuarioDao extends Dao {
 
-  public ProntuarioDAO(String server, String user, String password, int banco) {
+  public ProntuarioDao(String server, String user, String password, int banco) {
     super(server, user, password, banco);
   }
 
@@ -20,7 +20,7 @@ public class ProntuarioDAO extends DAO {
       buffer.append("INSERT INTO PAC_PRONTUARIO (");
       buffer.append("cpfPacienteProntuario, id_prontuario, hora, data, ficha");
       buffer.append(") VALUES (");
-      buffer.append(retornarValorStringBD(paciente.getCpf()) + ", ");
+      buffer.append(formatarParaStringSql(paciente.getCpf()) + ", ");
       buffer.append(retornarValorBD(prontuario));
       buffer.append(");");
       String sql = buffer.toString();
@@ -41,9 +41,9 @@ public class ProntuarioDAO extends DAO {
       
       StringBuffer buffer = new StringBuffer();
       buffer.append("DELETE FROM PAC_PRONTUARIO WHERE cpfPacienteProntuario= ");
-      buffer.append(retornarValorStringBD(paciente.getCpf()));
+      buffer.append(formatarParaStringSql(paciente.getCpf()));
       buffer.append(" AND id_prontuario= ");
-      buffer.append(retornarValorStringBD(Integer.toString(prontuario.getIdProntuario())));
+      buffer.append(formatarParaStringSql(Integer.toString(prontuario.getIdProntuario())));
       String sql = buffer.toString();
       comando.executeUpdate(sql);
 
@@ -63,9 +63,9 @@ public class ProntuarioDAO extends DAO {
       StringBuffer buffer = new StringBuffer();
       buffer.append("UPDATE PAC_PRONTUARIO SET ");
       buffer.append("cpfPacienteProntuario= ");
-      buffer.append(retornarValorStringBD(paciente.getCpf()) + ", ");
+      buffer.append(formatarParaStringSql(paciente.getCpf()) + ", ");
       buffer.append(retornarCamposBD(prontuario));
-      buffer.append(" WHERE cpfPacienteProntuario=" + retornarValorStringBD(paciente.getCpf()));
+      buffer.append(" WHERE cpfPacienteProntuario=" + formatarParaStringSql(paciente.getCpf()));
       buffer.append(" AND id_Prontuario= ");
       buffer.append(Integer.toString(prontuario.getIdProntuario()));
       String sql = buffer.toString();
@@ -82,10 +82,10 @@ public class ProntuarioDAO extends DAO {
   
   private String retornarValorBD(Prontuario prontuario) {
     return 
-        retornarValorStringBD(Integer.toString(prontuario.getIdProntuario())) + ", "
-        + retornarValorStringBD(prontuario.getHora().toString()) + ", "
-        + retornarValorStringBD(prontuario.getData().toString()) + ", "
-        + retornarValorStringBD(prontuario.getFicha());
+        formatarParaStringSql(Integer.toString(prontuario.getIdProntuario())) + ", "
+        + formatarParaStringSql(prontuario.getHora().toString()) + ", "
+        + formatarParaStringSql(prontuario.getData().toString()) + ", "
+        + formatarParaStringSql(prontuario.getFicha());
   }
   
   private String retornarCamposBD(Prontuario prontuario) {
@@ -93,11 +93,11 @@ public class ProntuarioDAO extends DAO {
     buffer.append("id_prontuario= ");
     buffer.append(Integer.toString(prontuario.getIdProntuario()));
     buffer.append(", hora= ");
-    buffer.append(retornarValorStringBD(prontuario.getHora().toString()));
+    buffer.append(formatarParaStringSql(prontuario.getHora().toString()));
     buffer.append(", data= ");
-    buffer.append(retornarValorStringBD(prontuario.getData().toString()));
+    buffer.append(formatarParaStringSql(prontuario.getData().toString()));
     buffer.append(", ficha= ");
-    buffer.append(retornarValorStringBD(prontuario.getFicha()));
+    buffer.append(formatarParaStringSql(prontuario.getFicha()));
     
     return buffer.toString();
 

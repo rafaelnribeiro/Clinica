@@ -1,12 +1,12 @@
-package DAO;
+package dao;
 
 import java.sql.SQLException;
 
 import entidades.Paciente;
 
-public class DoencaDAO extends DAO {
+public class DoencaDao extends Dao {
 
-  public DoencaDAO(String server, String user, String password, int banco) {
+  public DoencaDao(String server, String user, String password, int banco) {
     super(server, user, password, banco);
   }
 
@@ -19,8 +19,8 @@ public class DoencaDAO extends DAO {
       buffer.append("INSERT INTO DOENÇAS_CRONICAS (");
       buffer.append("cpfPacienteDoenca, doenca");
       buffer.append(") VALUES (");
-      buffer.append(retornarValorStringBD(paciente.getCpf()) + ", ");
-      buffer.append(retornarValorStringBD(doenca));
+      buffer.append(formatarParaStringSql(paciente.getCpf()) + ", ");
+      buffer.append(formatarParaStringSql(doenca));
       buffer.append(");");
       String sql = buffer.toString();
       comando.executeUpdate(sql);
@@ -40,9 +40,9 @@ public class DoencaDAO extends DAO {
       
       StringBuffer buffer = new StringBuffer();
       buffer.append("DELETE FROM DOENÇAS_CRONICAS WHERE cpfPacienteDoenca= ");
-      buffer.append(retornarValorStringBD(paciente.getCpf()));
+      buffer.append(formatarParaStringSql(paciente.getCpf()));
       buffer.append(" AND doenca= ");
-      buffer.append(retornarValorStringBD(doenca));
+      buffer.append(formatarParaStringSql(doenca));
       String sql = buffer.toString();
       comando.executeUpdate(sql);
 
@@ -62,12 +62,12 @@ public class DoencaDAO extends DAO {
       StringBuffer buffer = new StringBuffer();
       buffer.append("UPDATE DOENÇAS_CRONICAS SET ");
       buffer.append("cpfPacienteDoenca= ");
-      buffer.append(retornarValorStringBD(paciente.getCpf()));
+      buffer.append(formatarParaStringSql(paciente.getCpf()));
       buffer.append(", doenca= ");
-      buffer.append(retornarValorStringBD(dModificado));
-      buffer.append(" WHERE cpfPacienteDoenca=" + retornarValorStringBD(paciente.getCpf()));
+      buffer.append(formatarParaStringSql(dModificado));
+      buffer.append(" WHERE cpfPacienteDoenca=" + formatarParaStringSql(paciente.getCpf()));
       buffer.append(" AND doenca= ");
-      buffer.append(retornarValorStringBD(dAnterior));
+      buffer.append(formatarParaStringSql(dAnterior));
       String sql = buffer.toString();
       comando.executeUpdate(sql);
 

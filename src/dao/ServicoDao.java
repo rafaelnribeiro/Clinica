@@ -1,13 +1,13 @@
-package DAO;
+package dao;
 
 import java.sql.SQLException;
 
 import entidades.Servico;
 import entidades.Agendamento;
 
-public class ServicoDAO extends DAO {
+public class ServicoDao extends Dao {
 
-  public ServicoDAO(String server, String user, String password, int banco) {
+  public ServicoDao(String server, String user, String password, int banco) {
     super(server, user, password, banco);
   }
 
@@ -84,11 +84,11 @@ public class ServicoDAO extends DAO {
   private String retornarValorBD(Servico servico) {
     return 
         Integer.toString(servico.getIdServico()) + ", "
-        + retornarValorStringBD(servico.getHoraServico().toString()) + ", "
-        + retornarValorStringBD(servico.getDataServico().toString()) + ", "
+        + formatarParaStringSql(servico.getHoraServico().toString()) + ", "
+        + formatarParaStringSql(servico.getDataServico().toString()) + ", "
         + Double.toString(servico.getPreco()) + ", "
-        + retornarValorStringBD(servico.getDescricao()) + ", "
-        + retornarValorStringBD(Integer.toString(servico.getEstaPago()));
+        + formatarParaStringSql(servico.getDescricao()) + ", "
+        + formatarParaStringSql(Integer.toString(servico.getEstaPago()));
   }
   
   private String retornarCamposBD(Servico servico) {
@@ -96,13 +96,13 @@ public class ServicoDAO extends DAO {
     buffer.append("id_age_servico= ");
     buffer.append(Integer.toString(servico.getIdServico()));
     buffer.append(", horaServico= ");
-    buffer.append(retornarValorStringBD(servico.getHoraServico().toString()));
+    buffer.append(formatarParaStringSql(servico.getHoraServico().toString()));
     buffer.append(", dataServico= ");
-    buffer.append(retornarValorStringBD(servico.getDataServico().toString()));
+    buffer.append(formatarParaStringSql(servico.getDataServico().toString()));
     buffer.append(", preco= ");
     buffer.append(Double.toString(servico.getPreco()));
     buffer.append(", descricao= ");
-    buffer.append(retornarValorStringBD(servico.getDescricao()));
+    buffer.append(formatarParaStringSql(servico.getDescricao()));
     buffer.append(", estaPago= ");
     buffer.append(Integer.toString(servico.getEstaPago()));
     
