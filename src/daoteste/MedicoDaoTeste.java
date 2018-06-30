@@ -1,4 +1,4 @@
-package dao_teste;
+package daoteste;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import conexao.ConFactory;
-import dao.Dao;
 import dao.MedicoDao;
 import dao.UnidadeDao;
 import entidades.Medico;
@@ -23,7 +22,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class MedicoDaoTeste {
-  static Dao dao;
   static MedicoDao medDao;
   Date data;
   Medico m1;
@@ -31,9 +29,9 @@ class MedicoDaoTeste {
 
   @BeforeAll
   public static void setUpBeforeClass() {
-    dao = new Dao("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
     medDao = new MedicoDao("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
-    UnidadeDao uniDao = new UnidadeDao("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
+    UnidadeDao uniDao = new UnidadeDao("jdbc:mysql://localhost/clinica", "root",
+        "root", ConFactory.MYSQL);
     List<Medico> med = medDao.recuperarMedicos();
     for (Iterator<Medico> it = med.iterator(); it.hasNext();) {
       Medico medico = (Medico) it.next();
@@ -57,7 +55,8 @@ class MedicoDaoTeste {
       medDao.remover(medico);
     }
     data = Date.valueOf("2018-10-25");
-    m1 = new Medico("11223344556", "fulanius", data, "(84)7894-9874", "fulanius@gmail.com", "Rua das dores", "M",
+    m1 = new Medico("11223344556", "fulanius", data, "(84)7894-9874", "fulanius@gmail.com",
+        "Rua das dores", "M",
         "12345", "1122", 1);
   }
 
@@ -109,7 +108,7 @@ class MedicoDaoTeste {
   }
   
   @Test
-  public void recuperarMedicos () throws SQLException {
+  public void recuperarMedicos() throws SQLException {
     List<Medico> meds = new ArrayList<Medico>();
     meds.add(new Medico("00000000001", "Primeiro", data, "(84)0000-0001",
         "m1@gmail.com", "Rua1", "M", "1", "00001", 1));

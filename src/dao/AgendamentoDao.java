@@ -125,29 +125,33 @@ public class AgendamentoDao extends Dao {
         agendamento.setHora(rs.getTime("hora"));
         agendamento.setStatus(rs.getString("status"));
         agendamento.setComentario(rs.getString("comentario"));
-      }
-      
-      buffer.setLength(0);
-      buffer.append("SELECT id_servico, horaServico, dataServico, preco, descricao, estaPago");
-      buffer.append(" FROM AGENDAMENTO_SERVICO WHERE id_age_servico=");
-      buffer.append(formatarParaStringSql(Integer.toString(id)));
-      sql = buffer.toString();
-      rs = comando.executeQuery(sql);
-      while (rs.next()) {
-        Servico servico = new Servico();
-        servico.setIdServico(rs.getInt("id_servico"));
-        servico.setHoraServico(rs.getTime("horaServico"));
-        servico.setDataServico(rs.getDate("dataServico"));
-        servico.setPreco(rs.getDouble("preco"));
-        servico.setDescricao(rs.getString("descricao"));
-        servico.setEstaPago(rs.getInt("estaPago"));
         
-        agendamento.getServicos().add(servico);
+        buffer.setLength(0);
+        buffer.append("SELECT id_servico, horaServico, dataServico, preco, descricao, estaPago");
+        buffer.append(" FROM AGENDAMENTO_SERVICO WHERE id_age_servico=");
+        buffer.append(formatarParaStringSql(Integer.toString(id)));
+        sql = buffer.toString();
+        rs = comando.executeQuery(sql);
+        while (rs.next()) {
+          Servico servico = new Servico();
+          servico.setIdServico(rs.getInt("id_servico"));
+          servico.setHoraServico(rs.getTime("horaServico"));
+          servico.setDataServico(rs.getDate("dataServico"));
+          servico.setPreco(rs.getDouble("preco"));
+          servico.setDescricao(rs.getString("descricao"));
+          servico.setEstaPago(rs.getInt("estaPago"));
+          
+          agendamento.getServicos().add(servico);
+        }
+        
+        fechar();
+        
+        return agendamento;
+      } else {
+        fechar();
+        return null;
       }
-      
-      fechar();
-      
-      return agendamento;
+
       
     } catch (SQLException e) {
       e.printStackTrace();
@@ -224,7 +228,7 @@ public class AgendamentoDao extends Dao {
    * @param paciente objeto contendo o cpf do paciente
    * @return Lista com todos os agendamentos do paciente
    */
-  public List<Agendamento> retrieveAgendamentos(Paciente paciente) {
+  public List<Agendamento> recuperarAgendamentos(Paciente paciente) {
     try {
       conectar();
       
@@ -286,7 +290,7 @@ public class AgendamentoDao extends Dao {
    * @param medico objeto contendo o cpf do medico
    * @return Lista com todos os agendamentos do medico
    */
-  public List<Agendamento> retrieveAgendamentos(Medico medico) {
+  public List<Agendamento> recuperarAgendamentos(Medico medico) {
     try {
       conectar();
       

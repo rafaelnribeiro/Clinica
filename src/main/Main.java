@@ -180,7 +180,7 @@ public class Main {
 //  Agendamento a4 = aDAO.search(1);
 //  System.out.println(a4.getCpfPaciente() + " " + a4.getCpfMedico());
     
-    List<Agendamento> agendamentos = aDAO.retrieveAgendamentos(m2);
+    List<Agendamento> agendamentos = aDAO.recuperarAgendamentos(m2);
     for (Iterator<Agendamento> iterator = agendamentos.iterator(); iterator.hasNext();) {
       Agendamento agendamento = (Agendamento) iterator.next();
       System.out.println(agendamento.getCpfPaciente() + " " + agendamento.getCpfMedico());

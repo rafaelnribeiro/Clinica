@@ -1,4 +1,4 @@
-package dao_teste;
+package daoteste;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import conexao.ConFactory;
-import dao.Dao;
 import dao.PacienteDao;
 import entidades.Paciente;
 
@@ -21,7 +20,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PacienteDaoTeste {
-  static Dao dao;
   static PacienteDao pacDao;
   Date data;
   Paciente p1;
@@ -29,7 +27,6 @@ class PacienteDaoTeste {
   
   @BeforeAll
   public static void setUpBeforeClass() {
-    dao = new Dao("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
     pacDao = new PacienteDao("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
   }
   

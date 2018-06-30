@@ -19,8 +19,8 @@ public class Agendamento {
     this.servicos = new ArrayList<Servico>();
   }
 
-  public Agendamento(int idAgendamento, String cpfPaciente, String cpfMedico, Date data, Time hora, String status,
-      String comentario) {
+  public Agendamento(int idAgendamento, String cpfPaciente, String cpfMedico,
+      Date data, Time hora, String status, String comentario) {
     this.setIdAgendamento(idAgendamento);
     this.setCpfPaciente(cpfPaciente);
     this.setCpfMedico(cpfMedico);
@@ -93,6 +93,22 @@ public class Agendamento {
 
   public void setServicos(List<Servico> servicos) {
     this.servicos = servicos;
-  }  
+  }
+  
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Agendamento)) {
+      return false;
+    }
+    Agendamento age = (Agendamento) obj;
+    return 
+        (this.getIdAgendamento() == age.getIdAgendamento())
+        && this.getCpfMedico().equals(age.getCpfMedico())
+        && this.getCpfPaciente().equals(age.getCpfPaciente())
+        && this.getData().equals(age.getData())
+        && this.getHora().equals(age.getHora())
+        && this.getStatus().equals(age.getStatus())
+        && this.getComentario().equals(age.getComentario());
+  }
   
 }
