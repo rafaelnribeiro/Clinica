@@ -55,5 +55,25 @@ public class Medico extends Pessoa{
   public void setHorarios(ArrayList<Horario> horarios) {
     this.horarios = horarios;
   }
+  
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Medico)) {
+      return false;
+    }
+    
+    Medico med = (Medico)obj;
+    return
+        this.getCpf().equals(med.getCpf())
+        && this.getNome().equals(med.getNome())
+        && this.getData().equals(med.getData())
+        && this.getTelefone().equals(med.getTelefone())
+        && this.getEmail().equals(med.getEmail())
+        && this.getEndereco().equals(med.getEndereco())
+        && this.getSexo().equals(med.getSexo())
+        && this.getSenha().equals(med.getSenha())
+        && this.getCrm().equals(med.getCrm())
+        && (this.getNumUnidade() == med.getNumUnidade());
+  }
     
 }

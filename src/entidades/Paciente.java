@@ -78,6 +78,27 @@ public class Paciente extends Pessoa{
     this.prontuario = prontuario;
   }
   
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Paciente)) {
+      return false;
+    }
+    
+    Paciente pac = (Paciente)obj;
+    return
+        this.getCpf().equals(pac.getCpf())
+        && this.getNome().equals(pac.getNome())
+        && this.getData().equals(pac.getData())
+        && this.getTelefone().equals(pac.getTelefone())
+        && this.getEmail().equals(pac.getEmail())
+        && this.getEndereco().equals(pac.getEndereco())
+        && this.getSexo().equals(pac.getSexo())
+        && this.getSenha().equals(pac.getSenha())
+        && this.getTipoSanguineo().equals(pac.getTipoSanguineo())
+        && (this.getPeso() == pac.getPeso())
+        && (this.getAltura() == pac.getAltura());
+  }
+  
   
   
 }
