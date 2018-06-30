@@ -125,6 +125,7 @@ class MedicoDaoTeste {
     medDao.inserir(meds.get(3));
     
     assertArrayEquals(meds.toArray(), medDao.recuperarMedicos().toArray());
+    
   }
 
 }
