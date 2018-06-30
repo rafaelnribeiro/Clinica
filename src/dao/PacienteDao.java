@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Classe para realizar consultas na tabela Paciente.
+ * Classe para realizar consultas na tabela PACIENTE.
  * @author      Rafael do Nascimento Ribeiro
  * @version     1.0, 20 Jun 2018
  */
@@ -114,7 +114,7 @@ public class PacienteDao extends Dao {
    * Busca por um paciente no banco.
    * Consulta uma tupla na tabela PESSOA e suas tuplas correspondente nas demais tabelas do banco.
    * @param cpf CPF do paciente procurado
-   * @return paciente objeto contendo as informacoes do paciente caso exista,
+   * @return objeto contendo as informacoes do paciente caso exista,
    *        objeto null caso contrario
    */
   public Paciente buscar(String cpf) {
