@@ -59,8 +59,8 @@ class AgendamentoDaoTeste {
     Unidade uni1 = new Unidade(1, "Unidade", "Rua das unidades");
     UnidadeDao uniDao = new UnidadeDao("jdbc:mysql://localhost/clinica", "root",
         "root", ConFactory.MYSQL); 
-    uniDao.remove(uni1);
-    uniDao.insert(uni1);
+    uniDao.remover(uni1);
+    uniDao.inserir(uni1);
     
     
     List<Medico> meds = new ArrayList<Medico>();

@@ -28,7 +28,7 @@ class MedicoDaoTeste {
   Medico m2;
 
   @BeforeAll
-  public static void setUpBeforeClass() {
+  public static void setUpBeforeClass() throws SQLException {
     medDao = new MedicoDao("jdbc:mysql://localhost/clinica", "root", "root", ConFactory.MYSQL);
     UnidadeDao uniDao = new UnidadeDao("jdbc:mysql://localhost/clinica", "root",
         "root", ConFactory.MYSQL);
@@ -39,10 +39,10 @@ class MedicoDaoTeste {
     }
     Unidade uni1 = new Unidade(1, "Unidade Um", "Rua das dezenas");
     Unidade uni2 = new Unidade(2, "Unidade Dois", "Rua das centenas");
-    uniDao.remove(uni1);    
-    uniDao.remove(uni2);
-    uniDao.insert(uni1);
-    uniDao.insert(uni2);
+    uniDao.remover(uni1);    
+    uniDao.remover(uni2);
+    uniDao.inserir(uni1);
+    uniDao.inserir(uni2);
   }
   
   

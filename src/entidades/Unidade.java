@@ -7,7 +7,7 @@ public class Unidade {
   private String endereco;
   
   public Unidade() {
-	super();
+    super();
   }
   
   public Unidade(int numUnidade, String nome, String endereco) {
@@ -18,7 +18,7 @@ public class Unidade {
 
 
 
-public int getNumUnidade() {
+  public int getNumUnidade() {
     return numUnidade;
   }
 
@@ -40,6 +40,19 @@ public int getNumUnidade() {
 
   public void setEndereco(String endereco) {
     this.endereco = endereco;
+  }
+  
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Unidade)) {
+      return false;
+    }
+    
+    Unidade uni = (Unidade) obj;
+    return
+        (this.getNumUnidade() == uni.getNumUnidade())
+        && this.getNome().equals(uni.getNome())
+        && this.getEndereco().equals(uni.getEndereco());
   }
   
 }
